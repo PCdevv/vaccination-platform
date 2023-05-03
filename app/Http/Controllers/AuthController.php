@@ -13,18 +13,18 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        // /** @var User $user */
-        // $user = User::create([
-        //     'id_card_number' => $data['id_card_number'],
-        //     'name' => $data['name'],
-        //     'born_date' => $data['born_date'],
-        //     'gender' => $data['gender'],
-        //     'address' => $data['address'],
-        //     'password' => bcrypt($data['password']),
-        // ]);
-        // $token = $user->createToken('main')->plainTextToken;
-        // return response(compact('user', 'token'));
-        return $data;
+        /** @var User $user */
+        $user = User::create([
+            'id_card_number' => $data['id_card_number'],
+            'name' => $data['name'],
+            'born_date' => $data['born_date'],
+            'gender' => $data['gender'],
+            'address' => $data['address'],
+            'password' => bcrypt($data['password']),
+        ]);
+        $token = $user->createToken('main')->plainTextToken;
+        return response(compact('user', 'token'));
+        // return $request;
     }
 
     public function login(LoginRequest $request)
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
             return $success;
         } else {
-            return response('Unauthorised.', ['error' => 'Unauthorised']);
+            return response(['Unauthorised.', ['error' => 'Unauthorised']]);
         }
         // $credentials = $request->validated();
         // if (!Auth::attempt($credentials)) {
@@ -49,5 +49,12 @@ class AuthController extends Controller
         // $token = $user->createToken('main')->plainTextToken;
         // return response(compact('user', 'token'));
         // return $credentials;
+    }
+    public function logout(Request $request)
+    {
+        /** @var User $user */
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+        return response('', 204);
     }
 }

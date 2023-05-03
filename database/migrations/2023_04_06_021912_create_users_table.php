@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->string('address');
             $table->string('password');
-            $table->string('token')->unique(); //to do delete
+            // $table->string('token')->unique(); //to do delete
             $table->unsignedBigInteger('regional_id');
             $table->foreign('regional_id')->references('id')->on('regionals');
             // $table->foreignId('regional_id')->constrained('regionals');
