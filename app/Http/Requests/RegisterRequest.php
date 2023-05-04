@@ -20,14 +20,16 @@ class RegisterRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
     public function rules(): array
-    {
-        return [
-            'id_card_number' => 'required|integer',
-            'name' => 'required|string',
-            'born_date' => 'required|string',
-            'gender' => 'required|string',
-            'address' => 'required|string',
-            'password' => 'required',
-        ];
-    }
+{
+    return [
+        'id_card_number' => 'required|integer',
+        'name' => 'nullable|string',
+        'born_date' => 'nullable|string',
+        'gender' => 'nullable|string',
+        'address' => 'nullable|string',
+        'password' => 'required|string',
+        'regional_id' => 'nullable',
+    ];
+}
+
 }

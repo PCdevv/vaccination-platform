@@ -21,14 +21,14 @@ return new class extends Migration
             // $table->timestamps();
             $table->id();
             $table->integer("id_card_number")->unique();
-            $table->string('name');
-            $table->date('born_date');
-            $table->enum('gender', ['male', 'female']);
-            $table->string('address');
+            $table->string('name')->nullable();
+            $table->date('born_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('address')->nullable();
             $table->string('password');
             // $table->string('token')->unique(); //to do delete
-            $table->unsignedBigInteger('regional_id');
-            $table->foreign('regional_id')->references('id')->on('regionals');
+            $table->unsignedBigInteger('regional_id')->nullable();
+            $table->foreign('regional_id')->references('id')->on('regionals')->nullable();
             // $table->foreignId('regional_id')->constrained('regionals');
             $table->timestamps();
         });
