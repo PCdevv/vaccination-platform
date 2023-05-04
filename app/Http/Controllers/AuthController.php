@@ -28,12 +28,9 @@ class AuthController extends Controller
         return response(compact('user', 'token'));
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'id_card_number' => 'required',
-            'password' => 'required',
-        ]);
+        $request->validated();
         $user = User::where('id_card_number', $request->id_card_number)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
@@ -49,9 +46,6 @@ class AuthController extends Controller
                 $success['regional_id'] =  $user->regional_id;
             return response()->json($success);
         }
-        
-
-            
 
         // if (Auth::attempt(['id_card_number' => $request->id_card_number, 'password' => $request->password])) {
         //     $user = Auth::user();
