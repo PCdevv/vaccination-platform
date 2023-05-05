@@ -22,8 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::apiResource('/consultation', ConsultationController::class);
 
-Route::get('/v1/consultations', [ConsultationController::class, 'index']);
-Route::post('/v1/consultations', [ConsultationController::class, 'store']);
+Route::get('/consultations', [ConsultationController::class, 'index']);
+Route::post('/consultations', [ConsultationController::class, 'store']);
 
-Route::post('/v1/auth/register', [AuthController::class, 'register']);
-Route::post('/v1/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);

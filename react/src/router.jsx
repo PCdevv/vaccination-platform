@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import Layout from "./components/Layout";
+import GuestLayout from "./components/GuestLayout";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import RequestConsultation from "./components/RequestConsultation";
@@ -14,13 +15,18 @@ const router = createBrowserRouter([
         path: "/",
         element: <Layout />,
         children: [
-            { path: "/", element: <Navigate to="/login" /> },
+            { path: "/", element: <Navigate to="/dashboard" /> },
             { path: "/login", element: <Login /> },
             { path: "/dashboard", element: <Dashboard /> },
             { path: "/request-consultation", element: <RequestConsultation /> },
             { path: "/first-vaccination", element: <FirstVaccination /> },
             { path: "/hospital", element: <Hospital /> },
         ],
+    },
+    {
+        path: "/",
+        element: <GuestLayout />,
+        children: [{ path: "/login", element: <Login /> }],
     },
     { path: "*", element: <NotFound /> },
 ]);
