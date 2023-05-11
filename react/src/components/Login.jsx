@@ -1,12 +1,12 @@
-import React, { createRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 import { useStateContext } from "../context/ContextProvider";
 
 const Login = () => {
     const [errorMsg, setErrorMsg] = useState(null);
-    const idCardRef = createRef();
-    const passwordRef = createRef();
+    const idCardRef = useRef();
+    const passwordRef = useRef();
     const { setUser, setToken } = useStateContext();
 
     const handleLogin = (e) => {
@@ -21,17 +21,18 @@ const Login = () => {
             .then(({ data }) => {
                 // setUser(data.name);
                 setToken(data.token);
-                console.log(data);
+                console.log(data.token);
                 // console.log(data.name);
                 // console.log(data.token);
             })
             .catch((err) => {
-                console.log(err.response.data.message);
-                const response = err.response;
-                if (response && response.status === 401) {
-                    console.log(response.data.message);
-                    setErrorMsg(response.data.message);
-                }
+                console.log(err);
+                // console.log(err.response.data.message);
+                // const response = err.response;
+                // if (response && response.status === 401) {
+                //     console.log(response.data.message);
+                //     setErrorMsg(response.data.message);
+                // }
             });
     };
     return (

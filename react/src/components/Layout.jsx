@@ -1,8 +1,14 @@
 import React from "react";
 import Navbar from "./Navbar";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, redirect } from "react-router-dom";
+import { useStateContext } from "../context/ContextProvider";
 
 const Layout = ({ children }) => {
+    const { user, token } = useStateContext();
+
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
     return (
         <div>
             <Navbar />
