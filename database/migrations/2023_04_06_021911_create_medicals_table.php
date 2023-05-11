@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spots', function (Blueprint $table) {
+        Schema::create('medicals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('regional_id');
+            $table->unsignedBigInteger('spot_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('address');
-            $table->enum('serve', [1, 2, 3]);
-            $table->integer('capacity');
+            $table->enum('role', ['doctor', 'officer']);
             $table->timestamps();
         });
 
-        Schema::table('spots', function (Blueprint $table) {
-            $table->foreign('regional_id')->references('id')->on('regionals');
+        Schema::table('medicals', function (Blueprint $table) {
+            $table->foreign('spot_id')->references('id')->on('spots');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spots');
+        Schema::dropIfExists('medicals');
     }
 };

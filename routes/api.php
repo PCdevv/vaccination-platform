@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\SpotController;
+use App\Http\Middleware\LoginTokenIsValid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,14 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 // Route::apiResource('/consultation', ConsultationController::class);
 
-Route::get('/consultations', [ConsultationController::class, 'index']);
-Route::post('/consultations', [ConsultationController::class, 'store']);
+// Route::middleware(LoginTokenIsValid::class())
+
+    Route::get('/consultations', [ConsultationController::class, 'index'])->middleware(LoginTokenIsValid::class);
+    Route::post('/consultations', [ConsultationController::class, 'store'])->middleware(LoginTokenIsValid::class);
+    
+    Route::get('/spots', [SpotController::class, 'index'])->middleware(LoginTokenIsValid::class);
 
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);

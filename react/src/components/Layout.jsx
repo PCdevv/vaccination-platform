@@ -6,8 +6,8 @@ import { useStateContext } from "../context/ContextProvider";
 const Layout = ({ children }) => {
     const { user, token } = useStateContext();
 
-    if (!token) {
-        return <Navigate to="/login" />;
+    if (token) {
+        return <Navigate to="/dashboard" />;
     }
     return (
         <div>

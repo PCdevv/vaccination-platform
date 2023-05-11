@@ -7,7 +7,7 @@ const Dashboard = () => {
 
     const getConsultations = async () => {
         const data = await axios.get(
-            "http://127.0.0.1:8000/api/v1/consultations"
+            "http://127.0.0.1:8000/api/v1/consultations?token=dbc4d84bfcfe2284ba11beffb853a8c4"
         );
         // console.log(data.data.consultation);
         setConsuls(data.data.consultation);

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Consultation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +15,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Consultation::factory(10)->create();
+        DB::table('regionals')->insert([
+            "province" => "Jawa Tengah",
+            "district" => "Banjarnegara"
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::table('societies')->insert([
+            'id_card_number' => '4444',
+            'password' => bcrypt('pass'),
+            'name'=> 'saia',
+            'born_date'=> date('Y-m-d'),
+            'gender'=> 'female',
+            'address'=> 'Jl. jalan',
+            'regional_id'=> 1,
+            'login_tokens' => null
+        ]);
+
+        DB::table('spots')->insert([
+            'regional_id' => '1',
+            'name' => 'Rumah Sehat',
+            'address' => 'Jl. Sehat',
+            'serve' => '3',
+            'capacity' => '5'
+        ]);
+
+        DB::table('vaccines')->insert([
+                ['name' => 'Sinovac'],
+                ['name' => 'AstraZeneca'],
+                ['name' => 'Moderna'],
+                ['name' => 'Pfizer'],
+                ['name' => 'Sinnopharm']            
+        ]);
     }
 }

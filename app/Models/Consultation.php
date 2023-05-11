@@ -15,6 +15,8 @@ class Consultation extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'society_id',
+        'doctor_id',
         'status',
         'disease_history',
         'current_symptoms',

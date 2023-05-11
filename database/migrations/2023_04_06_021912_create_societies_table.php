@@ -11,18 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spots', function (Blueprint $table) {
+        Schema::create('societies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('regional_id');
+            $table->char('id_card_number', 8);
+            $table->string('password');
             $table->string('name');
-            $table->string('address');
-            $table->enum('serve', [1, 2, 3]);
-            $table->integer('capacity');
+            $table->date('born_date');
+            $table->enum('gender', ['male', 'female']);
+            $table->text('address');
+            $table->unsignedBigInteger('regional_id');
+            $table->text('login_tokens')->nullable();
             $table->timestamps();
+        
         });
-
-        Schema::table('spots', function (Blueprint $table) {
+        Schema::table('societies', function (Blueprint $table) {
             $table->foreign('regional_id')->references('id')->on('regionals');
+        
         });
     }
 
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spots');
+        Schema::dropIfExists('societies');
     }
 };

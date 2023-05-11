@@ -22,10 +22,8 @@ class StoreConsultationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'bool',
             'disease_history' => 'required|string',
-            'current_symptoms' => 'required|string',
-            'doctor_notes' => 'string'
+            'current_symptoms' => 'required|string'
         ];
     }
 }

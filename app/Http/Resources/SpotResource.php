@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ConsultationResource extends JsonResource
+class SpotResource extends JsonResource
 {
     // public static $wrap = 'consultation';
     /**
@@ -18,12 +18,13 @@ class ConsultationResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'status' => $this->status,
-            'society_id' => $this->society_id,
-            'disease_history' => $this->disease_history,
-            'current_symptoms' => $this->current_symptoms,
-            'doctor_notes' => $this->doctor_notes,
-            'doctor_id' => $this->doctor_id,
+            'name' => $this->name,
+            'address' => $this->address,
+            'serve' => $this->serve,
+            'capacity' => $this->capacity,
+            'available_vaccines' => [
+                $this->availableVaccines
+            ]
         ];
     }
 }
