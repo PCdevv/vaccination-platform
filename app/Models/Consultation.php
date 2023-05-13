@@ -22,4 +22,8 @@ class Consultation extends Model
         'current_symptoms',
         'doctor_notes'
     ];
+
+    protected $attributes = [
+        'status'=> 'pending'
+    ];
 }

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('vaccinations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('dose');
-            $table->date('date');
+            $table->tinyInteger('dose')->nullable();
+            $table->date('date')->nullable();
             $table->unsignedBigInteger('society_id');
             $table->unsignedBigInteger('spot_id');
-            $table->unsignedBigInteger('vaccine_id');
-            $table->unsignedBigInteger('doctor_id');
-            $table->unsignedBigInteger('officer_id');
+            $table->unsignedBigInteger('vaccine_id')->nullable();
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->unsignedBigInteger('officer_id')->nullable();
             $table->timestamps();
         
         });

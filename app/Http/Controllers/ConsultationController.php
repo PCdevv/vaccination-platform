@@ -46,32 +46,32 @@ class ConsultationController extends Controller
         // return 'ppp';
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Consultation $consultation)
-    {
-        return new  ConsultationResource($consultation);
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show(Consultation $consultation)
+    // {
+    //     return new  ConsultationResource($consultation);
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateConsultationRequest $request, Consultation $consultation)
-    {
-        $data = $request->validated();
-        // $consultation = Consultation::create($data);
-        $consultation->update($data);
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(UpdateConsultationRequest $request, Consultation $consultation)
+    // {
+    //     $data = $request->validated();
+    //     // $consultation = Consultation::create($data);
+    //     $consultation->update($data);
 
-        return new ConsultationResource($consultation);
-    }
+    //     return new ConsultationResource($consultation);
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Consultation $consultation)
-    {
-        $consultation->delete();
-        return response('', 204);
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(Consultation $consultation)
+    // {
+    //     $consultation->delete();
+    //     return response('', 204);
+    // }
 }

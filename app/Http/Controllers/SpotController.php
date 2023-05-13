@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SpotResource;
 use App\Models\Society;
 use App\Models\Spot;
+use App\Models\Vaccination;
 use Illuminate\Http\Request;
 
 class SpotController extends Controller
@@ -13,20 +14,25 @@ class SpotController extends Controller
     {
         $society = Society::where('login_tokens', $request->token)->first();
         return ['spots' => SpotResource::collection(
-            Spot::select(
-                'spots.*'
-                // 'spot_vaccines.vaccine_id', 
-                // 'vaccines.name as vaccine_name'
-                )
+            Spot::select('spots.*')
             ->where('regional_id', $society->regional_id)
-            // ->rightJoin('spot_vaccines', 'spot_vaccines.id', '=', 'spot_vaccines.spot_id')
-            // ->leftJoin('vaccines', 'vaccines.id', '=', 'spot_vaccines.vaccine_id')
             ->get()
         )];
     }
 
-    public function show(Spot $spot)
+    public function show(Request $request, $id)
     {
-        return new  SpotResource($spot);
+        $spot = Spot::where('id', $id)->select(
+            "id",
+            "regional_id",
+            "name",
+            "address",
+            "serve",
+            "capacity"
+            )
+            ->first();
+        $vaccinationCount = Vaccination::where('spot_id', $spot->id)->get();
+
+        return response(["date" => $request->date, "spot" => $spot, "vaccinations_count"=> count($vaccinationCount)]);
     }
 }

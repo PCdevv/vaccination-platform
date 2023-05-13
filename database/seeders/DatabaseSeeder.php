@@ -46,5 +46,23 @@ class DatabaseSeeder extends Seeder
                 ['name' => 'Pfizer'],
                 ['name' => 'Sinnopharm']            
         ]);
+        // DB::table('consultations')->insert([
+        //         'society_id' => 1,
+        //         'status' => "accepted",
+        //         'disease_history' => "some text",
+        //         'current_symptoms' => "some text"
+        // ]);
+
+        DB::table('users')->insert([
+                'username' => "Halima Yuniar",
+                'password' => bcrypt("doktah")
+        ]);
+
+        DB::table('medicals')->insert([
+            'spot_id' => 1,
+            'user_id' => 1,
+            'role' => "doctor",
+            'name' => "Dr. Halima Yuniar"
+        ]);
     }
 }
