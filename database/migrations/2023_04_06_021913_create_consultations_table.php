@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('society_id')->nullable();
             $table->unsignedBigInteger('doctor_id')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->nullable();
-            $table->text('disease_history');
-            $table->text('current_symptoms');
+            $table->text('disease_history')->nullable();
+            $table->text('current_symptoms')->nullable();
             $table->text('doctor_notes')->nullable();
             $table->timestamps();
         });

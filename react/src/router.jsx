@@ -8,6 +8,7 @@ import Dashboard from "./components/Dashboard";
 import RequestConsultation from "./components/RequestConsultation";
 import Hospital from "./components/Hospital";
 import FirstVaccination from "./components/FirstVaccination";
+import SpotDetail from "./components/SpotDetail";
 // import "./index.css";
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
             { path: "/request-consultation", element: <RequestConsultation /> },
             { path: "/first-vaccination", element: <FirstVaccination /> },
             { path: "/hospital", element: <Hospital /> },
+            { path: "/spot-detail/:id", element: <SpotDetail /> },
         ],
     },
     {

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('societies')->insert([
+            [
             'id_card_number' => '4444',
             'password' => bcrypt('pass'),
             'name'=> 'saia',
@@ -29,7 +30,18 @@ class DatabaseSeeder extends Seeder
             'address'=> 'Jl. jalan',
             'regional_id'=> 1,
             'login_tokens' => null
-        ]);
+        ],
+            [
+            'id_card_number' => '4445',
+            'password' => bcrypt('pass'),
+            'name'=> 'saia',
+            'born_date'=> date('Y-m-d'),
+            'gender'=> 'female',
+            'address'=> 'Jl. jalan',
+            'regional_id'=> 1,
+            'login_tokens' => null
+        ]
+    ]);
 
         DB::table('spots')->insert([
             'regional_id' => '1',
@@ -64,5 +76,102 @@ class DatabaseSeeder extends Seeder
             'role' => "doctor",
             'name' => "Dr. Halima Yuniar"
         ]);
+
+        DB::table('sessions')->insert(
+            [[
+            'spot_id' => 1,
+            'start_time' => '09:00:00',
+            'end_time' => '11:00:00'
+        ],
+        [
+            'spot_id' => 1,
+            'start_time' => '13:00:00',
+            'end_time' => '15:00:00'
+        ],
+        [
+            'spot_id' => 1,
+            'start_time' => '15:00:00',
+            'end_time' => '17:00:00'
+        ]]
+    );
+
+        DB::table('slots')->insert([
+            [
+            'spot_id' => 1,
+            'session_id' => 1,
+            'queue' => 1
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 1,
+            'queue' => 2
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 1,
+            'queue' => 3
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 1,
+            'queue' => 4
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 1,
+            'queue' => 5
+            ],
+            [
+            'spot_id' => 1,
+            'session_id' => 2,
+            'queue' => 6
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 2,
+            'queue' => 7
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 2,
+            'queue' => 8
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 2,
+            'queue' => 9
+        ],
+            [
+            'spot_id' => 1,
+            'session_id' => 2,
+            'queue' => 10
+            ],
+            [
+                'spot_id' => 1,
+                'session_id' => 3,
+                'queue' => 11
+            ],
+                [
+                'spot_id' => 1,
+                'session_id' => 3,
+                'queue' => 12
+            ],
+                [
+                'spot_id' => 1,
+                'session_id' => 3,
+                'queue' => 13
+            ],
+                [
+                'spot_id' => 1,
+                'session_id' => 3,
+                'queue' => 14
+            ],
+                [
+                'spot_id' => 1,
+                'session_id' => 3,
+                'queue' => 15
+            ]
+        ]
+    );
     }
 }

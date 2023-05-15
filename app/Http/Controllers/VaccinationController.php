@@ -66,7 +66,7 @@ class VaccinationController extends Controller
             $doctor = Medical::where('id', $vaccination->doctor_id)->first();
 
             $vaccinationData = [
-                'queue' => $key + 1, // Calculate the queue number
+                'queue' => $vaccination->queue,
                 'dose' => $vaccination->dose,
                 'vaccination_date' => $vaccination->date,
                 'spot' => [
@@ -106,6 +106,19 @@ class VaccinationController extends Controller
         $society = Society::where('login_tokens', $request->token)->first();
         $consultation = Consultation::where('society_id', $society->id)->first();
         $vaccinations = Vaccination::where('society_id', $society->id)->latest()->first();
+        $vaccinationQueue = Vaccination::where([
+                ['session_id', $request->session_id],
+                ['queue', $request->queue],
+                ['date', $request->date]
+            ])
+            ->first();
+
+            $allVaccinations = Vaccination::all()->toArray();
+            return response()->json($allVaccinations);
+
+        if (in_array($vaccinationQueue, $allVaccinations)) {
+            return response()->json(['message' => 'Somebody has booked this queue'], 200);
+        }
 
         $vaccineDose = '';
         if ($vaccinations == null) {

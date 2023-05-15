@@ -15,6 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->tinyInteger('dose')->nullable();
             $table->date('date')->nullable();
+            $table->bigInteger('session_id')->nullable();
+            $table->bigInteger('queue')->nullable();
             $table->unsignedBigInteger('society_id');
             $table->unsignedBigInteger('spot_id');
             $table->unsignedBigInteger('vaccine_id')->nullable();
