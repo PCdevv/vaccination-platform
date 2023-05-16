@@ -12,6 +12,8 @@ class Vaccination extends Model
     protected $fillable = [
         'dose',
         'date',
+        'queue',
+        'session_id',
         'society_id',
         'spot_id',
         'vaccine_id'

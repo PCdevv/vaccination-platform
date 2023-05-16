@@ -23,6 +23,8 @@ class StoreVaccinationRequest extends FormRequest
     {
         return [
             'date' => 'required|date_format:Y-m-d',
+            'queue' => 'required',
+            'session_id' => 'required',
             'spot_id' => 'required',
         ];
     }

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 import { useStateContext } from "../context/ContextProvider";
 
-const FirstVaccination = () => {
+const SpotList = () => {
     const { token } = useStateContext();
     const [spots, setSpots] = useState();
     const [isLoading, setIsLoading] = useState(true);
+    const [firstVaccination, setFirstVaccination] = useState([]);
+    const [secondVaccination, setSecondVaccination] = useState([]);
+    const district = localStorage.getItem("society_district");
 
     const getAllSpots = () => {
         axiosClient
@@ -15,13 +18,24 @@ const FirstVaccination = () => {
                 // setSpots()
                 setSpots(data.data.spots);
                 console.log(data.data.spots);
-                setIsLoading(false);
             })
             .catch((err) => console.log(err));
     };
 
+    const getVaccinations = () => {
+        axiosClient
+            .get(`/vaccinations?token=${token}`)
+            .then((data) => {
+                setFirstVaccination(data.data.vaccinations.first);
+                setSecondVaccination(data.data.vaccinations.second);
+                setIsLoading(false);
+            })
+            .catch((error) => console.log(error));
+    };
+
     useEffect(() => {
         getAllSpots();
+        getVaccinations();
     }, []);
 
     if (isLoading) {
@@ -31,15 +45,20 @@ const FirstVaccination = () => {
     return (
         <div className="flex flex-col h-screen">
             <div className="bg-slate-300 flex-grow h-1/4 flex justify-start items-center pl-6">
-                <h2 className="font-light text-4xl">First Vaccination</h2>
+                {!firstVaccination && (
+                    <h2 className="font-light text-4xl">First Vaccination</h2>
+                )}
+                {firstVaccination && !secondVaccination && (
+                    <h2 className="font-light text-4xl">Second Vaccination</h2>
+                )}
             </div>
             <div className="flex justify-between items-center w-2/5 mt-5">
                 <h3 className="text-2xl ml-10">
-                    List of vaccination spots in Temanggung
+                    List of vaccination spots in {district}
                 </h3>
             </div>
             {spots.map((s) => (
-                <Link key={s.id} to={`/spot-detail/${s.id}`}>
+                <Link key={s.id} to={`/spots/${s.id}`}>
                     <div className="bg-slate-300 w-auto grid grid-cols-3 m-6 rounded-3xl p-6">
                         <div className="font-semibold text-blue-500">
                             {s.name}
@@ -72,4 +91,4 @@ const FirstVaccination = () => {
     );
 };
 
-export default FirstVaccination;
+export default SpotList;

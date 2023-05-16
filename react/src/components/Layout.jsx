@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import { Navigate, Outlet, redirect } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
 
 const Layout = ({ children }) => {

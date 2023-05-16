@@ -21,16 +21,20 @@ const Login = () => {
             .then(({ data }) => {
                 setToken(data.token);
                 setUser(data.name);
+                localStorage.setItem(
+                    "society_district",
+                    data.regionals.district
+                );
                 console.log(data.token);
             })
             .catch((err) => {
                 console.log(err);
-                // console.log(err.response.data.message);
-                // const response = err.response;
-                // if (response && response.status === 401) {
-                //     console.log(response.data.message);
-                //     setErrorMsg(response.data.message);
-                // }
+                console.log(err.response.data.message);
+                const response = err.response;
+                if (response && response.status === 401) {
+                    console.log(response.data.message);
+                    setErrorMsg(response.data.message);
+                }
             });
     };
     return (
@@ -67,6 +71,10 @@ const Login = () => {
                                 Login
                             </button>
                         </div>
+                        <div className="col-span-1"></div>
+                        <label className="col-span-3 text-center text-red-500">
+                            {errorMsg}
+                        </label>
                     </form>
                 </div>
             </div>

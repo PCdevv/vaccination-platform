@@ -35,9 +35,9 @@ const RequestConsultation = () => {
                 // console.log(err.response.data.errors);
                 // setError(err.response.data.errors);
             });
-        // setInterval(() => {
-        //     window.location.replace("/dashboard");
-        // }, 2000);
+        setInterval(() => {
+            window.location.replace("/dashboard");
+        }, 3000);
     };
 
     return (

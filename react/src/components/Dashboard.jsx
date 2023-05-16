@@ -15,9 +15,7 @@ const Dashboard = () => {
         axiosClient
             .get(`/consultations?token=${token}`)
             .then((data) => {
-                // setConsuls(data.data.consultation[0]);
                 setConsuls(data.data.consultation);
-                // console.log(data.data.consultation);
             })
             .catch((err) => console.log(err));
     };
@@ -44,8 +42,7 @@ const Dashboard = () => {
 
     return (
         <div className="flex flex-col h-screen">
-            {console.log(!firstVaccination)}
-            {console.log(!secondVaccination)}
+            {/* {console.log(!secondVaccination)} */}
             <div className="bg-slate-300 flex-grow flex justify-start items-center pl-6 py-20">
                 <h2 className="font-light text-4xl">Dashboard</h2>
             </div>
@@ -148,7 +145,7 @@ const Dashboard = () => {
                                 First Vaccination
                             </h3>
                             <form className="text-md bg-white items-start">
-                                <Link to="/first-vaccination">
+                                <Link to="/spots">
                                     <button className="flex text-start px-3 py-1 text-blue-500 hover:text-blue-300">
                                         <p className="text-slate-400 mr-2">+</p>
                                         Register Vaccination
@@ -218,7 +215,7 @@ const Dashboard = () => {
                                 Second Vaccination
                             </h3>
                             <form className="text-md bg-white items-start">
-                                <Link to="/first-vaccination">
+                                <Link to="/spots">
                                     <button className="flex text-start px-3 py-1 text-blue-500 hover:text-blue-300">
                                         <p className="text-slate-400 mr-2">+</p>
                                         Register Vaccination

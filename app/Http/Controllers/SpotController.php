@@ -52,6 +52,7 @@ class SpotController extends Controller
                     ])->get()->toArray());
                     foreach ($slots as $slot) {
                         $available_slots[] = [
+                            'session_id' => $session->id,
                             'queue' => $slot,
                             'available' => !in_array($slot, $used_slots)
                         ];

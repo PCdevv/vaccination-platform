@@ -94,6 +94,29 @@ class DatabaseSeeder extends Seeder
             'end_time' => '17:00:00'
         ]]
     );
+        DB::table('spot_vaccines')->insert([
+            [
+            'spot_id' => 1,
+            'vaccine_id' => 1
+        ],
+            [
+            'spot_id' => 1,
+            'vaccine_id' => 2
+        ],
+            [
+            'spot_id' => 1,
+            'vaccine_id' => 3
+        ],
+            [
+            'spot_id' => 1,
+            'vaccine_id' => 4
+        ],
+            [
+            'spot_id' => 1,
+            'vaccine_id' => 5
+        ]
+        ]
+    );
 
         DB::table('slots')->insert([
             [

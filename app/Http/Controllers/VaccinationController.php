@@ -41,30 +41,20 @@ class VaccinationController extends Controller
 
     public function index(Request $request) {
         $society = Society::where('login_tokens', $request->token)->first();
-
-        // Retrieve the first and second vaccinations for the given society
         $vaccinations = Vaccination::where('society_id', $society->id)
                                     ->orderBy('date', 'asc')
                                     ->limit(2)
                                     ->get();
-
-        // Initialize an empty array to store the vaccinations data
         $vaccinationsData = [];
-
-        // Loop through the vaccinations and add their data to the array
         foreach ($vaccinations as $key => $vaccination) {
             $spot = Spot::select('id', 'name', 'address', 'serve', 'capacity', 'regional_id')
                         ->where('id', $vaccination->spot_id)
                         ->first();
-
             $regional = Regional::select('id', 'province', 'district')
                                 ->where('id', $spot->regional_id)
                                 ->first();
-
             $vaccine = Vaccine::where('id', $vaccination->vacine_id)->first();
-
             $doctor = Medical::where('id', $vaccination->doctor_id)->first();
-
             $vaccinationData = [
                 'queue' => $vaccination->queue,
                 'dose' => $vaccination->dose,
@@ -85,24 +75,20 @@ class VaccinationController extends Controller
                 'vaccine' => $vaccine,
                 'vaccinator' => $doctor,
             ];
-
             $vaccinationsData[$key == 0 ? 'first' : 'second'] = $vaccinationData;
         }
-
-        // If there's only one vaccination data, set the 'second' key to null
         if (count($vaccinations) == 1) {
             $vaccinationsData['second'] = null;
         }
-
         $response = [
             'vaccinations' => $vaccinationsData,
         ];
-
         return response()->json($response, 200);
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request, StoreVaccinationRequest $vaccinationRequest){
+        $validatedRequest = $vaccinationRequest->validated();
         $society = Society::where('login_tokens', $request->token)->first();
         $consultation = Consultation::where('society_id', $society->id)->first();
         $vaccinations = Vaccination::where('society_id', $society->id)->latest()->first();
@@ -111,12 +97,9 @@ class VaccinationController extends Controller
                 ['queue', $request->queue],
                 ['date', $request->date]
             ])
-            ->first();
+            ->exists();
 
-            $allVaccinations = Vaccination::all()->toArray();
-            return response()->json($allVaccinations);
-
-        if (in_array($vaccinationQueue, $allVaccinations)) {
+        if ($vaccinationQueue) {
             return response()->json(['message' => 'Somebody has booked this queue'], 200);
         }
 
@@ -140,9 +123,11 @@ class VaccinationController extends Controller
         if ($consultation['status'] == 'accepted') {
             Vaccination::create([
                 'dose' => $vaccineDose,
-                'date' => $request['date'],
+                'date' => $validatedRequest['date'],
+                'queue' => $validatedRequest['queue'],
+                'session_id' => $validatedRequest['session_id'],
                 'society_id' => $society['id'],
-                'spot_id' => $request['spot_id']
+                'spot_id' => $validatedRequest['spot_id']
             ]);
 
             if ($vaccineDose == 1) {
